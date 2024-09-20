@@ -9,8 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.eirs</groupId>
-    <artifactId>eirs-lsm</artifactId>
-    <version>0.0.4</version>
+    <artifactId>lsm</artifactId>
+    <version>1.0.0</version>
     <name>eirs-lsm</name>
     <description>List Sync Module</description>
     <properties>
@@ -70,6 +70,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
             <optional>true</optional>
         </dependency>
         <dependency>

@@ -1,6 +1,7 @@
 package com.eirs.lsm.service;
 
 import com.eirs.lsm.alert.AlertConfig;
+import com.eirs.lsm.config.AppConfig;
 import com.eirs.lsm.repository.ConfigRepository;
 import com.eirs.lsm.repository.entity.SysParam;
 import com.eirs.lsm.repository.entity.SystemConfigKeys;
@@ -25,7 +26,7 @@ public class SystemConfigurationServiceImpl implements SystemConfigurationServic
 
     Map<String, Integer> operatorsEirs = new HashMap<>();
     @Autowired
-    AlertConfig alertConfig;
+    AppConfig appConfig;
 
     @Autowired
     private ModuleAlertService moduleAlertService;
@@ -46,7 +47,7 @@ public class SystemConfigurationServiceImpl implements SystemConfigurationServic
     }
 
     public String findByKey(String key) throws RuntimeException {
-        Optional<SysParam> optional = repository.findByConfigKeyIgnoreCaseAndModule(key, alertConfig.getProcessId());
+        Optional<SysParam> optional = repository.findByConfigKeyIgnoreCaseAndModule(key, appConfig.getModuleName());
         if (optional.isPresent()) {
             log.info("Filled key:{} value:{}", key, optional.get().getConfigValue());
             return optional.get().getConfigValue();
