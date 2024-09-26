@@ -3,6 +3,7 @@ package com.eirs.lsm.service;
 import com.eirs.lsm.alert.AlertIds;
 import com.eirs.lsm.alert.AlertMessagePlaceholders;
 import com.eirs.lsm.alert.AlertService;
+import com.eirs.lsm.config.AppConfig;
 import com.eirs.lsm.repository.entity.DeviceSyncRequestListIdentity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,11 @@ public class ModuleAlertService {
     @Autowired
     AlertService alertService;
 
+    @Autowired
+    AppConfig appConfig;
+
     public void sendAlert(AlertIds alertIds, Map<AlertMessagePlaceholders, String> placeHolderMap) {
+        placeHolderMap.put(AlertMessagePlaceholders.FEATURE_NAME, appConfig.getModuleName());
         alertService.sendAlert(alertIds, placeHolderMap);
     }
 
@@ -28,12 +33,14 @@ public class ModuleAlertService {
         Map<AlertMessagePlaceholders, String> map = new HashMap<>();
         map.put(AlertMessagePlaceholders.EXCEPTION, exception);
         map.put(AlertMessagePlaceholders.LIST, listIdentity.name());
+        map.put(AlertMessagePlaceholders.FEATURE_NAME, appConfig.getModuleName());
         alertService.sendAlert(AlertIds.DATABASE_EXCEPTION, map);
     }
 
     public void sendConfigurationMissingAlert(String configKey) {
         Map<AlertMessagePlaceholders, String> map = new HashMap<>();
         map.put(AlertMessagePlaceholders.CONFIG_KEY, configKey);
+        map.put(AlertMessagePlaceholders.FEATURE_NAME, appConfig.getModuleName());
         alertService.sendAlert(AlertIds.CONFIGURATION_VALUE_MISSING, map);
     }
 
@@ -41,6 +48,7 @@ public class ModuleAlertService {
         Map<AlertMessagePlaceholders, String> map = new HashMap<>();
         map.put(AlertMessagePlaceholders.CONFIG_KEY, configKey);
         map.put(AlertMessagePlaceholders.CONFIG_VALUE, configValue);
+        map.put(AlertMessagePlaceholders.FEATURE_NAME, appConfig.getModuleName());
         alertService.sendAlert(AlertIds.CONFIGURATION_VALUE_WRONG, map);
     }
 

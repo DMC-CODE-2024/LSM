@@ -1,15 +1,12 @@
 package com.eirs.lsm.service;
 
-import com.eirs.lsm.alert.AlertConfig;
 import com.eirs.lsm.config.AppConfig;
 import com.eirs.lsm.repository.ConfigRepository;
 import com.eirs.lsm.repository.entity.SysParam;
 import com.eirs.lsm.repository.entity.SystemConfigKeys;
-import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
