@@ -101,30 +101,36 @@ public class OperatorUrlDelegate {
         restTemplate = restTemplateHttps(readTimeOutInMinutes);
 
         String isEnable = config.findByKey(SystemConfigKeys.ENABLE_PROCESSING_BLACKED_LIST, "NO");
+        String url = config.findByKey(SystemConfigKeys.OPERATOR_URL.replaceAll("<OPERATOR>", operator).replaceAll("<NUMBER>", String.valueOf(operatorEirId)));
         if (StringUtils.equalsAnyIgnoreCase(isEnable, new String[]{"YES", "TRUE"})) {
-            listUrlsMap.put(DeviceSyncRequestListIdentity.BLOCKED_LIST.toString(), config.findByKey(SystemConfigKeys.OPERATOR_URL_BLACKED.replaceAll("<OPERATOR>", operator).replaceAll("<NUMBER>", String.valueOf(operatorEirId))));
+            String LIST_URL = url + "/eir/block/<IMEI>/<IMSI>/<MSISDN>/<ACTUAL_IMEI>/<REQUEST_DATE>";
+            listUrlsMap.put(DeviceSyncRequestListIdentity.BLOCKED_LIST.toString(), LIST_URL);
         }
 
         isEnable = config.findByKey(SystemConfigKeys.ENABLE_PROCESSING_EXCEPTION_LIST, "NO");
         if (StringUtils.equalsAnyIgnoreCase(isEnable, new String[]{"YES", "TRUE"})) {
-            listUrlsMap.put(DeviceSyncRequestListIdentity.EXCEPTION_LIST.toString(), config.findByKey(SystemConfigKeys.OPERATOR_URL_EXCEPTION.replaceAll("<OPERATOR>", operator).replaceAll("<NUMBER>", String.valueOf(operatorEirId))));
+            String LIST_URL = url + "/eir/exception/<IMEI>/<IMSI>/<MSISDN>/<ACTUAL_IMEI>/<REQUEST_DATE>";
+            listUrlsMap.put(DeviceSyncRequestListIdentity.EXCEPTION_LIST.toString(), LIST_URL);
         }
 
         isEnable = config.findByKey(SystemConfigKeys.ENABLE_PROCESSING_TRACKED_LIST, "NO");
         if (StringUtils.equalsAnyIgnoreCase(isEnable, new String[]{"YES", "TRUE"})) {
-            listUrlsMap.put(DeviceSyncRequestListIdentity.TRACKED_LIST.toString(), config.findByKey(SystemConfigKeys.OPERATOR_URL_TRACKED.replaceAll("<OPERATOR>", operator).replaceAll("<NUMBER>", String.valueOf(operatorEirId))));
+            String LIST_URL = url + "/eir/track/<IMEI>/<IMSI>/<MSISDN>/<ACTUAL_IMEI>/<REQUEST_DATE>";
+            listUrlsMap.put(DeviceSyncRequestListIdentity.TRACKED_LIST.toString(), LIST_URL);
         }
 
         isEnable = config.findByKey(SystemConfigKeys.ENABLE_PROCESSING_ALLOWED_TAC, "NO");
         if (StringUtils.equalsAnyIgnoreCase(isEnable, new String[]{"YES", "TRUE"})) {
-            listUrlsMap.put(DeviceSyncRequestListIdentity.ALLOWED_TAC.toString(), config.findByKey(SystemConfigKeys.OPERATOR_URL_ALLOWED_TAC.replaceAll("<OPERATOR>", operator).replaceAll("<NUMBER>", String.valueOf(operatorEirId))));
+            String LIST_URL = url + "/eir/allowed-tac/<TAC>/<REQUEST_DATE>";
+            listUrlsMap.put(DeviceSyncRequestListIdentity.ALLOWED_TAC.toString(), LIST_URL);
         }
 
         isEnable = config.findByKey(SystemConfigKeys.ENABLE_PROCESSING_BLOCKED_TAC, "NO");
         if (StringUtils.equalsAnyIgnoreCase(isEnable, new String[]{"YES", "TRUE"})) {
-            listUrlsMap.put(DeviceSyncRequestListIdentity.BLOCKED_TAC.toString(), config.findByKey(SystemConfigKeys.OPERATOR_URL_BLOCKED_TAC.replaceAll("<OPERATOR>", operator).replaceAll("<NUMBER>", String.valueOf(operatorEirId))));
+            String LIST_URL = url + "/eir/blocked-tac/<TAC>/<REQUEST_DATE>";
+            listUrlsMap.put(DeviceSyncRequestListIdentity.BLOCKED_TAC.toString(), LIST_URL);
         }
-
+        log.info("All URLs for operator:{} operatorEirId:{} listUrlsMap:{}", operator, operatorEirId, listUrlsMap);
     }
 
     public RestTemplate restTemplateHttps(int connectTimeOut) throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException, IOException, CertificateException {

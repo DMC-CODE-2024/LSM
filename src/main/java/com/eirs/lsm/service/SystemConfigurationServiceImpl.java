@@ -44,13 +44,18 @@ public class SystemConfigurationServiceImpl implements SystemConfigurationServic
     }
 
     public String findByKey(String key) throws RuntimeException {
-        Optional<SysParam> optional = repository.findByConfigKeyIgnoreCaseAndModule(key, appConfig.getModuleName());
-        if (optional.isPresent()) {
-            log.info("Filled key:{} value:{}", key, optional.get().getConfigValue());
-            return optional.get().getConfigValue();
-        } else {
-            log.info("Value for key:{} Not Found", key);
-            moduleAlertService.sendConfigurationMissingAlert(key);
+        try {
+            Optional<SysParam> optional = repository.findByConfigKeyIgnoreCaseAndModule(key, appConfig.getModuleName());
+            if (optional.isPresent()) {
+                log.info("Filled key:{} value:{}", key, optional.get().getConfigValue());
+                return optional.get().getConfigValue();
+            } else {
+                log.info("Value for key:{} Not Found", key);
+                moduleAlertService.sendConfigurationMissingAlert(key);
+                throw new RuntimeException("Config Key:" + key + ", value not found");
+            }
+        } catch (Exception e) {
+            log.error("Error while finding Key:{} Error:{}", key, e.getMessage(), e);
             throw new RuntimeException("Config Key:" + key + ", value not found");
         }
     }
