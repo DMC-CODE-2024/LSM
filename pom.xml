@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.eirs</groupId>
-    <artifactId>lsm</artifactId>
+    <artifactId>eir_list_sync</artifactId>
     <version>1.0.0</version>
-    <name>eirs-lsm</name>
+    <name>eir_list_sync</name>
     <description>List Sync Module</description>
     <properties>
         <java.version>17</java.version>

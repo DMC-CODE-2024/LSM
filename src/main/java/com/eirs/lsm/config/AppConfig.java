@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
-    @Value("${module-name}")
-    private String moduleName;
+    @Value("${feature-name}")
+    private String featureName;
 
 }

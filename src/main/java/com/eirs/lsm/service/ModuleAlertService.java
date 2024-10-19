@@ -25,7 +25,7 @@ public class ModuleAlertService {
     AppConfig appConfig;
 
     public void sendAlert(AlertIds alertIds, Map<AlertMessagePlaceholders, String> placeHolderMap) {
-        placeHolderMap.put(AlertMessagePlaceholders.FEATURE_NAME, appConfig.getModuleName());
+        placeHolderMap.put(AlertMessagePlaceholders.FEATURE_NAME, appConfig.getFeatureName());
         alertService.sendAlert(alertIds, placeHolderMap);
     }
 
@@ -33,14 +33,14 @@ public class ModuleAlertService {
         Map<AlertMessagePlaceholders, String> map = new HashMap<>();
         map.put(AlertMessagePlaceholders.EXCEPTION, exception);
         map.put(AlertMessagePlaceholders.LIST, listIdentity.name());
-        map.put(AlertMessagePlaceholders.FEATURE_NAME, appConfig.getModuleName());
+        map.put(AlertMessagePlaceholders.FEATURE_NAME, appConfig.getFeatureName());
         alertService.sendAlert(AlertIds.DATABASE_EXCEPTION, map);
     }
 
     public void sendConfigurationMissingAlert(String configKey) {
         Map<AlertMessagePlaceholders, String> map = new HashMap<>();
         map.put(AlertMessagePlaceholders.CONFIG_KEY, configKey);
-        map.put(AlertMessagePlaceholders.FEATURE_NAME, appConfig.getModuleName());
+        map.put(AlertMessagePlaceholders.FEATURE_NAME, appConfig.getFeatureName());
         alertService.sendAlert(AlertIds.CONFIGURATION_VALUE_MISSING, map);
     }
 
@@ -48,7 +48,7 @@ public class ModuleAlertService {
         Map<AlertMessagePlaceholders, String> map = new HashMap<>();
         map.put(AlertMessagePlaceholders.CONFIG_KEY, configKey);
         map.put(AlertMessagePlaceholders.CONFIG_VALUE, configValue);
-        map.put(AlertMessagePlaceholders.FEATURE_NAME, appConfig.getModuleName());
+        map.put(AlertMessagePlaceholders.FEATURE_NAME, appConfig.getFeatureName());
         alertService.sendAlert(AlertIds.CONFIGURATION_VALUE_WRONG, map);
     }
 

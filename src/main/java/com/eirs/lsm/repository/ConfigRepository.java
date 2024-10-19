@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface ConfigRepository extends JpaRepository<SysParam, Long> {
 
     public Optional<SysParam> findByConfigKeyIgnoreCaseAndModule(String configKey, String module);
+    public Optional<SysParam> findByConfigKeyIgnoreCase(String configKey);
 }

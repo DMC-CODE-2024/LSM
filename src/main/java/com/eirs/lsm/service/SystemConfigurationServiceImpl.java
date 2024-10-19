@@ -45,18 +45,18 @@ public class SystemConfigurationServiceImpl implements SystemConfigurationServic
 
     public String findByKey(String key) throws RuntimeException {
         try {
-            Optional<SysParam> optional = repository.findByConfigKeyIgnoreCaseAndModule(key, appConfig.getModuleName());
+            Optional<SysParam> optional = repository.findByConfigKeyIgnoreCase(key);
             if (optional.isPresent()) {
-                log.info("Filled key:{} value:{}", key, optional.get().getConfigValue());
+                log.info("Filled key:{} value:{} FeatureName:{}", key, optional.get().getConfigValue(), appConfig.getFeatureName());
                 return optional.get().getConfigValue();
             } else {
-                log.info("Value for key:{} Not Found", key);
+                log.info("Value for key:{} Not Found for FeatureName:{}", key, appConfig.getFeatureName());
                 moduleAlertService.sendConfigurationMissingAlert(key);
-                throw new RuntimeException("Config Key:" + key + ", value not found");
+                throw new RuntimeException("Config Key:" + key + ", value not found for FeatureName:" + appConfig.getFeatureName());
             }
         } catch (Exception e) {
-            log.error("Error while finding Key:{} Error:{}", key, e.getMessage(), e);
-            throw new RuntimeException("Config Key:" + key + ", value not found");
+            log.error("Error while finding Key:{} FeatureName:{} Error:{}", key, appConfig.getFeatureName(), e.getMessage(), e);
+            throw new RuntimeException("Config Key:" + key + ", value not found for FeatureName:" + appConfig.getFeatureName());
         }
     }
 
