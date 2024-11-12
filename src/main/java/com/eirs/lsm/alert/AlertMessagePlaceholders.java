@@ -1,9 +1,12 @@
 package com.eirs.lsm.alert;
 
 public enum AlertMessagePlaceholders {
-    URL("<URL>"), LIST("<LIST>"), EXCEPTION("<EXCEPTION>"), OPERATOR("<OPERATOR>"), FILE_TYPE("<FILE_TYPE>"),
-    CONFIG_KEY("<CONFIG_KEY>"), CONFIG_VALUE("<CONFIG_VALUE>"), FEATURE_NAME("<FEATURE_NAME>");
+    URL("<param_url>"), LIST("<param_list>"), OPERATOR("<param_operator>"), FILE_TYPE("<param_filetype>"),
+    EXCEPTION("param_exception"),
 
+    CONFIG_KEY("param_key"), CONFIG_VALUE("param_value"),
+
+    FEATURE_NAME("param_feature"), LANGUAGE("param_language"), SMS("param_sms");
     String placeholder;
 
     AlertMessagePlaceholders(String placeholder) {
