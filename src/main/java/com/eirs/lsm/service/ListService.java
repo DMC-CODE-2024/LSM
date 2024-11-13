@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ListService<T> {
 
-    public List<OperatorRequestDTO> getIncremental(LocalDateTime startDate, LocalDateTime endDate);
+    void sync(LocalDateTime startDate, LocalDateTime endDate);
 }

@@ -73,10 +73,7 @@ public class AllowedTacOrchestration {
                             isAlreadyRunning = true;
                             LocalDateTime startDate = lastProcessedDate;
                             LocalDateTime endDate = LocalDateTime.now().minusMinutes(pickTimeBeforeInMinutes).withSecond(0).withNano(0);
-                            List<DeviceSyncRequest> requests = getOperatorRequests(service.getIncremental(startDate, endDate));
-                            if (!CollectionUtils.isEmpty(requests))
-                                operatorRequestService.saveAll(requests);
-
+                            service.sync(startDate, endDate);
                             deviceSyncRequestPointer.setSyncedTillDate(endDate);
                             deviceSyncRequestPointerService.updateLastProcessedDate(deviceSyncRequestPointer);
                             isAlreadyRunning = false;
@@ -95,22 +92,6 @@ public class AllowedTacOrchestration {
             }
         }
         log.info("AllowedTac List reading is not in config with key:{} Expected Value: YES/TRUE", enableConfigKey);
-    }
-
-    private List<DeviceSyncRequest> getOperatorRequests(List<OperatorRequestDTO> dtos) {
-        List<DeviceSyncRequest> requests = new ArrayList<>();
-        dtos.forEach(dto -> {
-            if (validator.isOperatorRequest(dto)) {
-                log.info("Operator Converting to OperatorRequestDTO:{}", dto);
-                if (config.getOperators().contains(dto.getOperatorName().toUpperCase()))
-                    requests.addAll(beansMapper.toSingleOperatorRequest(dto));
-                else
-                    log.info("Skipping this record as Operator is not enabled OperatorRequestDTO:{}", dto);
-            } else {
-                requests.addAll(beansMapper.toOperatorRequest(dto));
-            }
-        });
-        return requests;
     }
 
     private Boolean isEnabled() {
