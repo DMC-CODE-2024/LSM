@@ -57,18 +57,18 @@ public class ExceptionDeviceServiceImpl implements ListService<ExceptionDevice> 
         list.forEach(data -> {
             deviceSyncRequestList.getDeviceSyncRequests().addAll(getOperatorRequests(data));
             if (deviceSyncRequestList.getDeviceSyncRequests().size() > 5000) {
-                log.info("Going to save GreylistDevice Batch to Device of Size:{}", deviceSyncRequestList.getDeviceSyncRequests().size());
+                log.info("Going to save ExceptionListDevice Batch to Device of Size:{}", deviceSyncRequestList.getDeviceSyncRequests().size());
                 try {
                     CompletableFuture.runAsync(() -> operatorRequestService.saveAll(deviceSyncRequestList.getDeviceSyncRequests())).get();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                operatorRequestService.saveAll(deviceSyncRequestList.getDeviceSyncRequests());
+
                 deviceSyncRequestList.setDeviceSyncRequests(new ArrayList<>());
             }
         });
         if (!CollectionUtils.isEmpty(deviceSyncRequestList.getDeviceSyncRequests())) {
-            log.info("Going to save Blacklist Batch to Device of Size:{}", deviceSyncRequestList.getDeviceSyncRequests().size());
+            log.info("Going to save ExceptionListDevice Batch to Device of Size:{}", deviceSyncRequestList.getDeviceSyncRequests().size());
             try {
                 CompletableFuture.runAsync(() -> operatorRequestService.saveAll(deviceSyncRequestList.getDeviceSyncRequests())).get();
             } catch (Exception e) {
