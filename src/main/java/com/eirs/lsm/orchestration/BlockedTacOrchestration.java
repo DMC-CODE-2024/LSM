@@ -91,7 +91,7 @@ public class BlockedTacOrchestration {
             }
         }
 
-        log.info("AllowedTac List reading is not in config with key:{} Expected Value: YES/TRUE", enableConfigKey);
+        log.info("Blocked Tac List reading is not in config with key:{} Expected Value: YES/TRUE", enableConfigKey);
     }
 
     private Boolean isEnabled() {
