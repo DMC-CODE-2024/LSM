@@ -88,7 +88,7 @@ public class BlacklistDeviceOrchestration {
                 throw new RuntimeException(e);
             }
         }
-        log.info("blacklist reading is not in config with key:{} Expected Value: YES/TRUE", enableConfigKey);
+        log.info("Blacklist reading is not in config with key:{} Expected Value: YES/TRUE", enableConfigKey);
     }
 
     private Boolean isEnabled() {
