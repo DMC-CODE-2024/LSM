@@ -10,7 +10,7 @@ public interface SystemConfigKeys {
      */
     String PICK_DATE_BEFORE_TIME = "LSM_PICK_DATE_BEFORE_TIME";
 
-    String FAILED_SYNC_RETRY_AFTER_MINUTES = "FAILED_SYNC_RETRY_AFTER_MINUTES";
+    String FAILED_SYNC_RETRY_AFTER_MINUTES = "LSM_FAILED_SYNC_RETRY_AFTER_MINUTES";
     Integer DEFAULT_PICK_DATE_BEFORE_TIME = 6;
 
     /******** List last read date****/
